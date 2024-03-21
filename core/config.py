@@ -13,7 +13,7 @@ class Config(BaseModel):
     ENV: str = "development"
     DEBUG: bool = True
     APP_HOST: str = "localhost"
-    APP_PORT: int = 1010
+    APP_PORT: int = 8000
     WRITER_DB_URL: str = WRITE_DB_URL
     READER_DB_URL: str = READ_DB_URL
     JWT_SECRET_KEY: str = JWT_SECRET_KEY
