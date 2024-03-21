@@ -18,7 +18,8 @@ class CreateUserRequestSchema(BaseModel):
     email: str = Field(..., description="Email")
     password1: str = Field(..., description="Password1", min_length=6)
     password2: str = Field(..., description="Password2")
-    username: str = Field(..., description="username")
+    username: str = Field(default="", description="Username")
+    is_admin: bool = Field(default=False, description="Is Admin")
 
     @validator("email")
     def isValidEmail(cls, value: str) -> str:
@@ -31,12 +32,32 @@ class CreateUserRequestSchema(BaseModel):
 
 class CreateUserResponseSchema(BaseModel):
     email: str = Field(..., description="Email")
-    username: str = Field(..., description="username")
+    username: str = Field(..., description="Username")
 
     class Config:
         orm_mode = True
+
+class UpdateUserResponseSchema(CreateUserResponseSchema):
+    pass
+
+class DeleteUserRequestSchema(BaseModel):
+    email: str = Field(..., description="Email")
+
+class AddUserPermissionRequestSchema(BaseModel):
+    user_id: int = Field(..., description="User ID")
+    role_id: int = Field(..., description="Role ID")
+    service_id: int = Field(..., description="Service ID")
 
 
 class LoginResponseSchema(BaseModel):
     token: str = Field(..., description="Access Token")
     refresh_token: str = Field(..., description="Refresh token")
+
+class CreateRoleRequestSchema(BaseModel):
+    name: str = Field(..., description="Name")
+
+class CreateServiceRequestSchema(CreateRoleRequestSchema):
+    pass
+
+
+
